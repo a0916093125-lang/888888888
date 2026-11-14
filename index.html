@@ -637,6 +637,312 @@
       html { scroll-behavior: auto; }
       .scene-layer, .story-card { transition: none; }
     }
+  
+    /* === Mobile-Native RWD v2 Architecture Upgrade === */
+    html, body {
+      max-width: 100vw;
+      overflow-x: clip;
+    }
+    .scenario-card, .product-card, .panel-card, .cart-row, .story-card, .faq-item {
+      min-width: 0;
+      word-break: break-word;
+    }
+    /* Hide bulky UCP/llms.txt code drawer by default for normal shoppers; open on demand via footer button */
+    .protocol-drawer {
+      display: none;
+      margin-top: 24px;
+    }
+    .protocol-drawer.is-expanded {
+      display: block;
+    }
+    .footer-proto-btn {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent-cream-gold);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .footer-proto-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --header-offset: 68px;
+      }
+      /* 1. Compact Sticky Header */
+      .header-inner {
+        flex-wrap: nowrap;
+        padding: 8px 12px;
+        gap: 8px;
+      }
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+      }
+      .brand-title {
+        font-size: 0.94rem;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .main-nav {
+        order: 0;
+        width: auto;
+        flex: 1;
+        padding-top: 0;
+        border-top: none;
+        gap: 4px;
+      }
+      .nav-btn {
+        padding: 6px 10px;
+        font-size: 0.78rem;
+        min-height: 36px;
+      }
+      .nav-cta {
+        padding: 7px 11px;
+        font-size: 0.78rem;
+        min-height: 38px;
+      }
+
+      /* 2. 5-Station 3D World Stage: Top 52% Unobstructed Visual + Bottom 48% Story Sheet */
+      .world-sticky {
+        height: calc(100dvh - var(--header-offset));
+        min-height: 540px;
+      }
+      .world-hud {
+        top: 10px;
+        padding: 4px;
+        gap: 4px;
+        max-width: calc(100vw - 16px);
+      }
+      .hud-pill {
+        padding: 6px 10px;
+        font-size: 0.74rem;
+        min-height: 34px;
+      }
+      .scene-img {
+        height: 56%;
+        object-fit: cover;
+        object-position: center center;
+      }
+      .scene-scrim {
+        background: linear-gradient(180deg, rgba(10, 15, 24, 0.38) 0%, transparent 18%, rgba(10, 15, 24, 0.25) 46%, var(--bg-deep-teal) 55%, var(--bg-deep-teal) 100%) !important;
+      }
+      .hotspot-pin {
+        top: calc(52% - 42px) !important;
+        bottom: auto !important;
+        left: 12px !important;
+        right: auto !important;
+        max-width: calc(100vw - 24px);
+        padding: 6px 12px;
+        font-size: 0.74rem;
+        min-height: 36px;
+      }
+      .world-narrative {
+        margin-top: calc(-100dvh + var(--header-offset));
+      }
+      .story-step {
+        min-height: 82dvh;
+        align-items: flex-end;
+        justify-content: center !important;
+        padding: 0 12px 68px;
+      }
+      .story-card {
+        max-width: 100%;
+        padding: 16px 18px;
+        border-radius: 14px;
+        background: rgba(15, 23, 34, 0.94);
+      }
+      .story-eyebrow {
+        font-size: 0.68rem;
+        margin-bottom: 4px;
+      }
+      .story-heading {
+        font-size: 1.18rem;
+        line-height: 1.3;
+        margin-bottom: 6px;
+      }
+      .story-body {
+        font-size: 0.84rem;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .story-metrics {
+        padding-top: 8px;
+        margin-bottom: 10px;
+        gap: 6px;
+      }
+      .metric-val {
+        font-size: 0.92rem;
+      }
+      .metric-lbl {
+        font-size: 0.68rem;
+      }
+      .story-actions .btn-gold,
+      .story-actions .btn-ghost-light {
+        min-height: 42px;
+        padding: 8px 14px;
+        font-size: 0.82rem;
+        flex: 1 1 auto;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* 3. Chapter 02 Scenarios: Horizontal Scroll-Snap Carousel (Saves 70% vertical scroll) */
+      .section-wrap {
+        padding: 42px 14px;
+      }
+      .section-head {
+        margin-bottom: 20px;
+      }
+      .section-title {
+        font-size: 1.36rem;
+      }
+      .section-sub {
+        font-size: 0.86rem;
+      }
+      .scenario-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding-bottom: 8px;
+        margin: 0 -14px;
+        padding-left: 14px;
+        padding-right: 14px;
+        scrollbar-width: none;
+      }
+      .scenario-grid::-webkit-scrollbar {
+        display: none;
+      }
+      .scenario-card {
+        flex: 0 0 82vw;
+        max-width: 310px;
+        scroll-snap-align: start;
+        padding: 18px;
+      }
+      .scenario-btn {
+        min-height: 44px;
+        font-size: 0.85rem;
+      }
+
+      /* 4. Chapter 03 Catalog: Sticky Horizontal Category Bar + Compact Cards + 44x44px Thumb Targets */
+      .quick-price-strip {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+        margin-bottom: 14px;
+      }
+      .quick-price-strip::-webkit-scrollbar {
+        display: none;
+      }
+      .quick-pill {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .catalog-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .tab-group {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+        gap: 6px;
+      }
+      .tab-group::-webkit-scrollbar {
+        display: none;
+      }
+      .tab-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-height: 40px;
+        padding: 8px 14px;
+      }
+      .search-box {
+        max-width: 100%;
+        min-width: 0;
+      }
+      /* Prevent iOS Safari Auto-Zoom on focus (must be >= 16px) */
+      .search-input,
+      .form-input,
+      .form-select {
+        font-size: 16px !important;
+        min-height: 44px;
+      }
+      .product-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+      }
+      .product-card {
+        padding: 16px;
+      }
+      .product-title {
+        font-size: 0.96rem;
+      }
+      .product-spec {
+        font-size: 0.82rem;
+        margin-bottom: 12px;
+      }
+      .product-card-footer {
+        padding-top: 10px;
+      }
+      /* 44x44px Thumb-Zone Quantity Buttons */
+      .qty-control {
+        padding: 3px;
+        gap: 8px;
+      }
+      .qty-btn {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.2rem !important;
+      }
+      .qty-val {
+        min-width: 28px;
+        font-size: 1rem;
+      }
+
+      /* 5. Chapter 04 Checkout & Sticky Mobile Bar */
+      .panel-card {
+        padding: 18px 16px;
+      }
+      .cart-row {
+        flex-wrap: wrap;
+        padding: 12px;
+      }
+      .btn-primary-block,
+      .btn-secondary-block {
+        min-height: 48px;
+        font-size: 0.92rem;
+      }
+      .mobile-cart-bar {
+        padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      }
+      .mobile-cart-bar .btn-gold {
+        min-height: 44px;
+        padding: 10px 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1394,6 +1700,10 @@
         <p><a class="footer-link" href="#faq-ucp-section">閱讀 30 天碎邊破膜免費換新保固條款</a></p>
       </div>
     </div>
+      <div style="max-width:1240px; margin:16px auto 0; padding-top:14px; border-top:1px solid rgba(255,255,255,0.12); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <span style="font-size:0.76rem; opacity:0.72;">Mobile-Native RWD v2.0｜支援 iPhone 單手 44px 熱區與左右滑動切換島嶼</span>
+      <button type="button" class="footer-proto-btn" id="toggle-proto-drawer-btn">檢視 AI 商務憑證 (UCP / llms.txt)</button>
+    </div>
   </footer>
 
   <!-- 底部即時總價與保固／免運懸浮列 -->
@@ -2034,6 +2344,47 @@
       if (protoPre) protoPre.textContent = UCP_TEXT;
       updateScrollTarget();
       startWorldLoop();
+    
+      // Mobile Touch Swipe on 3D Stage & Footer UCP Drawer Toggle
+      (function () {
+        const ws = document.getElementById("world-stage");
+        let touchStartX = 0;
+        let touchStartY = 0;
+        if (ws) {
+          ws.addEventListener("touchstart", function (e) {
+            if (e.touches && e.touches.length === 1) {
+              touchStartX = e.touches[0].clientX;
+              touchStartY = e.touches[0].clientY;
+            }
+          }, { passive: true });
+          ws.addEventListener("touchend", function (e) {
+            if (!e.changedTouches || e.changedTouches.length === 0) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+              const nextIdx = dx < 0 ? Math.min(4, state.activeStation + 1) : Math.max(0, state.activeStation - 1);
+              if (nextIdx !== state.activeStation) {
+                setStation(nextIdx);
+              }
+            }
+          }, { passive: true });
+        }
+
+        const toggleProtoBtn = document.getElementById("toggle-proto-drawer-btn");
+        const protoDrawer = document.querySelector(".protocol-drawer");
+        if (toggleProtoBtn && protoDrawer) {
+          toggleProtoBtn.addEventListener("click", function () {
+            const isOpen = protoDrawer.classList.toggle("is-expanded");
+            toggleProtoBtn.textContent = isOpen
+              ? "收合 AI 商務憑證檢視器 (UCP / llms.txt)"
+              : "檢視 AI 商務憑證 (UCP / llms.txt)";
+            if (isOpen) {
+              protoDrawer.scrollIntoView({ behavior: "smooth" });
+            }
+          });
+        }
+      })();
+
     })();
   </script>
 </body>
